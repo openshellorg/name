@@ -1,6 +1,6 @@
-/// `ns` command line: read-only inspection of the command namespace.
+/// `name` command line: read-only inspection of the command namespace.
 /// CLI Dispatch: bare = help (exit 0); unknown command/flag = exit 2 with did-you-mean; stray args = exit 2.
-module ns.cli;
+module name_tool.cli;
 
 import std.algorithm : map, startsWith, min;
 import std.algorithm.comparison : levenshteinDistance;
@@ -9,18 +9,18 @@ import std.format : format;
 import std.json;
 import std.stdio : File;
 import command_namespace;
-import ns.pathimport;
+import name_tool.pathimport;
 
-enum nsVersion = "0.1.0";
+enum nameVersion = "0.1.0";
 
 enum Exit : int { ok = 0, notFound = 1, conflicts = 1, usage = 2 }
 
 immutable string[] commands = ["which", "conflicts", "help"];
 
-private enum helpText = `ns - inspect the command namespace (read-only)
+private enum helpText = `name - inspect the command namespace (read-only)
 
 Usage:
-  ns <command> [options]
+  name <command> [options]
 
 Commands:
   which <name>   Show what <name> resolves to and what it shadows
@@ -32,7 +32,7 @@ Options:
   -h, --help     Show help
   --version      Show version
 
-Today ns reads only the legacy PATH import (legacy/...).
+Today name reads only the legacy PATH import (legacy/...).
 Exit codes: 0 ok, 1 not found / conflicts present, 2 usage error.
 `;
 
@@ -68,9 +68,9 @@ private string[] didYouMean(string word, const(string)[] options)
 
 private int usageError(Sink err, string msg, string[] hints = null)
 {
-    err.put("ns: " ~ msg ~ "\n");
+    err.put("name: " ~ msg ~ "\n");
     if (hints.length) err.put("Did you mean: " ~ hints.join(", ") ~ "?\n");
-    err.put("Run 'ns --help' for usage.\n");
+    err.put("Run 'name --help' for usage.\n");
     return Exit.usage;
 }
 
@@ -100,7 +100,7 @@ int run(string[] args, Sink out_, Sink err, string[string] env, Registry regOver
     if (cmd == "--version")
     {
         if (params.length) return usageError(err, "'--version' takes no arguments");
-        out_.put("ns " ~ nsVersion ~ "\n");
+        out_.put("name " ~ nameVersion ~ "\n");
         return Exit.ok;
     }
     if (cmd.startsWith("-"))
@@ -117,7 +117,7 @@ int run(string[] args, Sink out_, Sink err, string[string] env, Registry regOver
     switch (cmd)
     {
         case "which":
-            if (params.length == 0) return usageError(err, "'which' needs a name: ns which <name>");
+            if (params.length == 0) return usageError(err, "'which' needs a name: name which <name>");
             if (params.length > 1) return usageError(err, format("'which' takes one name, got %s: %s", params.length, params.join(" ")));
             return cmdWhich(reg(), params[0], json, out_, err);
         case "conflicts":
@@ -191,12 +191,12 @@ int cmdWhich(Registry reg, string rawName, bool json, Sink out_, Sink err)
             }
             else
             {
-                err.put(format("ns: '%s' is claimed by %s packages and will not be picked silently:\n", rawName, res.others.length));
+                err.put(format("name: '%s' is claimed by %s packages and will not be picked silently:\n", rawName, res.others.length));
                 foreach (o; res.others) err.put(format("  %s\n", o.source));
             }
             return Exit.notFound;
         case ResolveStatus.aliasLoop:
-            err.put(format("ns: '%s' is an alias loop: %s\n", rawName, res.chain.join(" -> ")));
+            err.put(format("name: '%s' is an alias loop: %s\n", rawName, res.chain.join(" -> ")));
             return Exit.notFound;
         case ResolveStatus.notFound:
             auto leaf = name.startsWith("legacy/") ? name["legacy/".length .. $] : name;
@@ -209,7 +209,7 @@ int cmdWhich(Registry reg, string rawName, bool json, Sink out_, Sink err)
             }
             else
             {
-                err.put(format("ns: '%s' not found in the namespace or on PATH\n", rawName));
+                err.put(format("name: '%s' not found in the namespace or on PATH\n", rawName));
                 if (hints.length) err.put("Did you mean: " ~ hints.join(", ") ~ "?\n");
             }
             return Exit.notFound;
@@ -276,7 +276,7 @@ unittest
     assert(t([], o, e) == 0 && o.canFind("Usage:"));
     assert(t(["--help"], o, e) == 0 && o.canFind("Usage:"));
     assert(t(["help"], o, e) == 0);
-    assert(t(["--version"], o, e) == 0 && o.canFind(nsVersion));
+    assert(t(["--version"], o, e) == 0 && o.canFind(nameVersion));
     // unknown command: exit 2, did-you-mean on stderr
     assert(t(["wich"], o, e) == 2 && e.canFind("unknown command") && e.canFind("which"));
     assert(t(["conflict"], o, e) == 2 && e.canFind("conflicts"));

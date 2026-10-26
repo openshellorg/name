@@ -7,7 +7,7 @@ __dummy.html
 *.o
 *.lib
 *.a
-/ns
-/ns-test-*
+/name
+/name-test-*
 *-test-library*
 *-test-application*

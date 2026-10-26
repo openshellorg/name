@@ -2,4 +2,6 @@
 
 == Unreleased
 
-* Initial scaffold: README, MIT license, Antora component `tools` module `ns`, encoding guard. Seed: https://github.com/openshellorg/project-plans/blob/main/seeds/2026-10-26%20-%20namespace-inspection-audit.md
+* Renamed from `ns` to `name` (repo, binary, dub package, docs module). `name` reads as a verb or a noun depending on the rest of the command (`name which git`, `name conflicts`), and no existing `name` command was found in WSL, pwsh or cmd, or in Debian, Ubuntu, Arch, Homebrew or PyPI.
+* `name which <name>` and `name conflicts` over a PATH import (`legacy/...`), with `--json`.
+* Initial scaffold: README, MIT license, Antora component `tools` module `name`, encoding guard. Seed: https://github.com/openshellorg/project-plans/blob/main/seeds/2026-10-26%20-%20namespace-inspection-audit.md

@@ -1,5 +1,5 @@
 /// Import the platform PATH into the `legacy/` subtree (NS-5).
-module ns.pathimport;
+module name_tool.pathimport;
 
 import std.algorithm : splitter, map, filter, canFind, endsWith;
 import std.array : array;

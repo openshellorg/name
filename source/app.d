@@ -1,6 +1,6 @@
 import std.stdio : stdout, stderr;
 import std.process : environment;
-import ns.cli : run;
+import name_tool.cli : run;
 
 int main(string[] args)
 {
