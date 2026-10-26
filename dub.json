@@ -1,0 +1,22 @@
+{
+    "name": "ns",
+    "description": "Read-only inspection and audit of the command namespace.",
+    "authors": [
+        "Ryan Johnson"
+    ],
+    "license": "MIT",
+    "targetType": "executable",
+    "targetName": "ns",
+    "sourcePaths": [
+        "source"
+    ],
+    "importPaths": [
+        "source"
+    ],
+    "dependencies": {
+        "command-namespace": {
+            "repository": "git+https://github.com/openshellorg/command-namespace.git", "version": "96a19a6ffa1af2a1b6f75f59d3a897d54570d817"
+        }
+    },
+    "mainSourceFile": "source/app.d"
+}

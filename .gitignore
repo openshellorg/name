@@ -1,0 +1,13 @@
+.dub/
+docs.json
+__dummy.html
+*.exe
+*.pdb
+*.obj
+*.o
+*.lib
+*.a
+/ns
+/ns-test-*
+*-test-library*
+*-test-application*

@@ -1,0 +1,54 @@
+ifndef::env-github[:icons: font]
+:toc: preamble
+:toclevels: 2
+:sectanchors:
+
+image:https://img.shields.io/github/contributors/openshellorg/ns.svg?style=for-the-badge[Contributors,link=https://github.com/openshellorg/ns/graphs/contributors]
+image:https://img.shields.io/github/stars/openshellorg/ns.svg?style=for-the-badge[Stars,link=https://github.com/openshellorg/ns/stargazers]
+image:https://img.shields.io/github/issues/openshellorg/ns.svg?style=for-the-badge[Issues,link=https://github.com/openshellorg/ns/issues]
+image:https://img.shields.io/github/license/openshellorg/ns.svg?style=for-the-badge[License,link=https://github.com/openshellorg/ns/blob/main/LICENSE]
+
+= ns
+
+Read-only inspection and audit of the command namespace: `ns which`, `ns conflicts` (PATH import today).
+
+link:https://github.com/openshellorg/ns/issues[Report Bug] |
+link:https://github.com/openshellorg/ns/issues[Request Feature] |
+link:https://docs.opensh.org/tools/ns/index.html[Explore the docs]
+
+== About The Project
+
+Part of the OpenShellOrg command-namespace work: the shell finds commands in a hierarchical, task-shaped namespace instead of searching `PATH`.
+Design seed: link:https://github.com/openshellorg/project-plans/blob/main/seeds/2026-10-26%20-%20namespace-inspection-audit.md[project-plans seed]. Concept page: link:https://docs.opensh.org/open-shell-org/concept-command-namespace.html[Command namespace and context requests].
+
+Status: `which` and `conflicts` over a PATH import (v0).
+
+== Usage
+
+[source,shell]
+----
+ns                 # help
+ns which git       # what 'git' resolves to, and what it shadows
+ns conflicts       # every name with more than one claim (exit 1 if any)
+ns --json which git
+----
+
+Today `ns` imports only `PATH` (as `legacy/...`, see NS-5). Exit codes: 0 ok, 1 not found or conflicts, 2 usage error.
+
+Build and test with LDC + dub: `dub test`, `dub build`.
+
+== Related
+
+* https://github.com/openshellorg/command-namespace[command-namespace] - spec, schemas, registry library
+* https://github.com/openshellorg/ns[ns] - inspection and audit
+* https://github.com/openshellorg/install[install] - resolver front door
+* https://github.com/openshellorg/versions[versions] - version manager
+* https://github.com/openshellorg/isolate[isolate] - isolation levels front door
+
+== License
+
+MIT - see link:LICENSE[].
+
+== Contact
+
+Open Shell Org - openshell@devcentr.org

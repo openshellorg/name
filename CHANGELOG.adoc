@@ -1,0 +1,5 @@
+= Changelog
+
+== Unreleased
+
+* Initial scaffold: README, MIT license, Antora component `tools` module `ns`, encoding guard. Seed: https://github.com/openshellorg/project-plans/blob/main/seeds/2026-10-26%20-%20namespace-inspection-audit.md

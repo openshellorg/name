@@ -1,0 +1,12 @@
+# Fails CI when tracked text files contain double-encoded UTF-8 (mojibake).
+# Logic: dev-centr/agent-rules tools/encoding-guard (general/text-encoding.md).
+name: Encoding guard
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  encoding:
+    uses: dev-centr/agent-rules/.github/workflows/encoding-guard.yml@main

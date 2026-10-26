@@ -1,0 +1,6 @@
+name: tools
+title: Tools
+version: ~
+# start_page optional; hub may own ROOT
+nav:
+  - modules/ns/nav.adoc
