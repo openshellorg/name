@@ -15,7 +15,7 @@
     ],
     "dependencies": {
         "command-namespace": {
-            "repository": "git+https://github.com/openshellorg/command-namespace.git", "version": "   96a19a6..96e0348  main -> main 96e0348250e5b3874c972fa6a9e392e74f5b0b62"
+            "repository": "git+https://github.com/openshellorg/command-namespace.git", "version": "96e0348250e5b3874c972fa6a9e392e74f5b0b62"
         }
     },
     "mainSourceFile": "source/app.d"
